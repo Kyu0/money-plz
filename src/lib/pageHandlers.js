@@ -1,7 +1,7 @@
 const exim = require('./exim')
 
 exports.index = (req, res) => {
-    const country = exim.dummyData
+    const country = exim.result
         .map(data => {
             return {
                 'name':data.cur_nm,
