@@ -21,7 +21,7 @@ const addSearchDate = (uri, date) => uri + `&searchdate=${date}`
 const addData = (uri) => uri + `&data=AP01`
 const completeUri = (key, date) => addData(addSearchDate(addAuthKey(API_URI, key), date))
 
-exports.result = [
+exports.results = [
     {
         "result": 1,
         "cur_unit": "AED",
