@@ -1,5 +1,6 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
+const dotenv = require('dotenv').config()
 
 const pageHandlers = require('./lib/pageHandlers')
 
