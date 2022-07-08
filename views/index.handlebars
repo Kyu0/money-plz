@@ -1,13 +1,17 @@
 <div class="container">
     <center>
         <h1>Money Plz</h1>
-        <label for="source">환전할 금액</label>
-        <input id="source" class="form-control" type="text">
-        <select id="destination" class="form-control">
-            {{#each countries}}
-            <option value={{unit}}>{{name}}</option>
-            {{/each}}
-        </select>
+        <form class="form-group" id="form-exchange">
+            <label for="source">환전할 금액</label>
+            <input id="source" class="form-control" type="text" onkeyup="inputNumberFormat(this)" required>
+            <select id="destination" class="form-control">
+                {{#each countries}}
+                <option value={{unit}}>{{name}}({{unit}})</option>
+                {{/each}}
+            </select>
+
+            <button type="submit" id="btn-exchange" class="btn btn-primary">결과 보기</button>
+        </form>
 
         <div id="result">
             <!-- 환전 결과 (거쳐가는 화폐도 표기)-->
@@ -16,3 +20,32 @@
         </div>
     </center>
 </div>
+
+<script>
+    {{!-- TODO JS 파일로 추출 --}}
+    {{!-- common.js / 출처 : https://mi-nya.tistory.com/248 --}}
+     function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    }
+    {{!-- /common.js --}}
+
+    document.getElementById('form-exchange')
+        .addEventListener('submit', event => {
+            event.preventDefault()
+            const form = event.target
+            const moneyToExchange = form.elements.source.value
+            const destinationMoney = form.elements.destination.value
+
+            console.log(moneyToExchange.replace(/,/g, '') + '\n' + destinationMoney)
+        })
+</script>
