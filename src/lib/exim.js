@@ -1,3 +1,26 @@
+/*
+조회 결과 프로퍼티 설명 (달러를(1$ : 1200원) 기준으로 예를 들었음)
+- result(결과 조회 코드) : 1(정상), 2(data 코드 오류), 3(인증 코드 오류), 4(일일제한횟수 마감)
+- cur_unit(환전 결과 화폐 단위)
+! 송금시 전산작업 등으로 인해 bkpr에서 수수료가 붙기 때문에 ttb, tts가 최종 환전금액으로 생각됨
+- ttb(송금 받을 때) : 1200원 -> 1달러으로 환전하는 경우
+- tts(송금 보낼 때) : 1달러 -> 1200원으로 환전하는 경우(실제는 1200원보다 더 적은 금액으로 환전할 수 있음)
+- deal_bas_r(매매기준율) : bkpr에서 은행이 이득을 보기 위해 실제 판매하는 가격
+- bkpr(장부가격) : 은행이 달러를 사왔을 때의 가격
+- yy_efee_r(년환가료율) : 값이 보통 0인 것으로 보아 일반적인 상황에서 쓰이지 않는 것으로 생각됨
+- ten_dd_efee_r(10일환가료율) : 상동
+- kftc_bkrp(서울외국환중개 장부가격) : 서울외국환중개가 표준이 되는 기관으로 생각됨 (가게(환전소)마다 식재료(외환)의 가격이 다르지만
+    권장소비자가격(서울외국환중개)은 같은 느낌)
+- kftc_deal_bas_r(서울외국환중개 매매기준율) : 상동
+*/
+
+const API_URI = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?'
+
+const addAuthKey = (uri, key) => uri + `authkey=${key}`
+const addSearchDate = (uri, date) => uri + `&searchdate=${date}`
+const addData = (uri) => uri + `&data=AP01`
+const completeUri = (key, date) => addData(addSearchDate(addAuthKey(API_URI, key), date))
+
 exports.dummyData = [
     {
         "result": 1,
