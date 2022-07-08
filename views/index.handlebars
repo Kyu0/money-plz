@@ -43,9 +43,20 @@
         .addEventListener('submit', event => {
             event.preventDefault()
             const form = event.target
-            const moneyToExchange = form.elements.source.value
-            const destinationMoney = form.elements.destination.value
-
-            console.log(moneyToExchange.replace(/,/g, '') + '\n' + destinationMoney)
+            const query = {
+                koreaMoney: form.elements.source.value.replace(/,/g, ''),
+                destUnit: form.elements.destination.value
+            }
+            
+            const headers = { 'Content-Type': 'application/json' }
+            fetch(`/exchange?koreaMoney=${query.koreaMoney}&destUnit=${query.destUnit}`, { method: 'get', headers: headers})
+                .then(response => {
+                    if (response.status < 200 || response.status >= 300)
+                        throw new Error(`요청에 실패했습니다. 요청 응답 상태 코드 : ${response.status}`)
+                    return response.json()
+                })
+                .then(json => {
+                    document.getElementById('result').innerHTML = `<b>${json.exchanged}</b>`
+                })
         })
 </script>
