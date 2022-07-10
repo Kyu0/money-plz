@@ -8,10 +8,23 @@ exports.index = (req, res) => {
 }
 
 exports.api = {
-    exchange: (req, res) => {
+    exchange: async (req, res) => {
         const koreaMoney = req.query.koreaMoney
         const destUnit = req.query.destUnit
-    
-        res.json({ok: true, exchanged : exchange.calculate(koreaMoney, destUnit)})
+        
+        const koreaRates = await exchangeRateApi.getCountryExchangeRate('KRW')
+        const destRates = await exchangeRateApi.getCountryExchangeRate(destUnit)
+
+        for (key in koreaRates) {
+            koreaRates[key] = (koreaMoney * koreaRates[key] / destRates[key]).toFixed(2)
+        }
+
+        let results = Object.entries(koreaRates).sort((a, b) => b[1] - a[1]).slice(0, 3)
+        
+        res.json({
+            success: true,
+            results: results,
+            directExchangeResult: (koreaMoney / destRates['KRW']).toFixed(2)
+        })
     }
 }

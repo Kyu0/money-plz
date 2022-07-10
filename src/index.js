@@ -17,7 +17,7 @@ app.set('views', './views')
 app.get('/', handlers.index)
 
 // REST API
-// app.get('/exchange', handlers.api.exchange)
+app.get('/exchange', handlers.api.exchange)
 
 app.listen(port, () => {
     console.log(`Server started on port : ${port}`)
