@@ -2,10 +2,10 @@
     <center>
         <h1>Money Plz</h1>
         <form class="form-group" id="form-exchange">
-            <label for="source">환전할 금액</label>
-            <input id="source" class="form-control" type="text" onkeyup="inputNumberFormat(this)" required>
-            <select id="destination" class="form-control">
-                {{#each countries}}
+            <label for="koreaUnit">환전할 금액</label>
+            <input id="koreaUnit" class="form-control" type="text" onkeyup="inputNumberFormat(this)" required>
+            <select id="destUnit" class="form-control">
+                {{#each countryInitial}}
                 <option value={{unit}}>{{name}}({{unit}})</option>
                 {{/each}}
             </select>
@@ -44,12 +44,12 @@
             event.preventDefault()
             const form = event.target
             const query = {
-                koreaMoney: form.elements.source.value.replace(/,/g, ''),
-                destUnit: form.elements.destination.value
+                koreaUnit: form.elements.koreaUnit.value.replace(/,/g, ''),
+                destUnit: form.elements.destUnit.value
             }
             
             const headers = { 'Content-Type': 'application/json' }
-            fetch(`/exchange?koreaMoney=${query.koreaMoney}&destUnit=${query.destUnit}`, { method: 'get', headers: headers})
+            fetch(`/exchange?koreaUnit=${query.koreaUnit}&destUnit=${query.destUnit}`, { method: 'get', headers: headers})
                 .then(response => {
                     if (response.status < 200 || response.status >= 300)
                         throw new Error(`요청에 실패했습니다. 요청 응답 상태 코드 : ${response.status}`)

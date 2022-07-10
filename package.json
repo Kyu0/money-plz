@@ -7,10 +7,10 @@
   "license": "MIT",
   "description": "여행 가기 전, 어떤 국가의 통화를 거쳐서 환전해야 이득을 볼 수 있는지 알려주는 웹 프로젝트~~",
   "dependencies": {
+    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6",
-    "request": "^2.88.2"
+    "express-handlebars": "^6.0.6"
   },
   "scripts": {
     "start:dev": "nodemon --watch src/"

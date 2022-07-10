@@ -2,8 +2,7 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const dotenv = require('dotenv').config()
 
-const pageHandlers = require('./lib/pageHandlers')
-const api = require('./lib/apiHandler')
+const handlers = require('./lib/handlers')
 
 const app = express();
 const port = process.env.PORT || 3000
@@ -15,9 +14,10 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars')
 app.set('views', './views')
 
-app.get('/', pageHandlers.index)
+app.get('/', handlers.index)
 
-app.get('/exchange', api.exchange)
+// REST API
+// app.get('/exchange', handlers.api.exchange)
 
 app.listen(port, () => {
     console.log(`Server started on port : ${port}`)
