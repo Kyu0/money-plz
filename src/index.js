@@ -2,6 +2,7 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const dotenv = require('dotenv').config()
 
+const exchangeRateApi = require('./lib/exchangeRateApi')
 const handlers = require('./lib/handlers')
 
 const app = express();
@@ -20,5 +21,6 @@ app.get('/', handlers.index)
 app.get('/exchange', handlers.api.exchange)
 
 app.listen(port, () => {
+    exchangeRateApi.getDataByApi()
     console.log(`Server started on port : ${port}`)
 })

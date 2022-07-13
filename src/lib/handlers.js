@@ -1,19 +1,16 @@
 const exchangeRateApi = require('./exchangeRateApi')
 
 exports.index = (req, res) => {
-    exchangeRateApi.getCountryInitial
-        .then( countryIntial => {
-            res.render('index', { 'countryInitial': countryIntial })
-        })
+    res.render('index', { 'countryInitial': exchangeRateApi.getCountryInitial })
 }
 
 exports.api = {
-    exchange: async (req, res) => {
+    exchange: (req, res) => {
         const koreaMoney = req.query.koreaMoney
         const destUnit = req.query.destUnit
         
-        const koreaRates = await exchangeRateApi.getCountryExchangeRate('KRW')
-        const destRates = await exchangeRateApi.getCountryExchangeRate(destUnit)
+        const koreaRates = exchangeRateApi.getCountryExchangeRate('KRW')
+        const destRates = exchangeRateApi.getCountryExchangeRate(destUnit)
 
         for (key in koreaRates) {
             koreaRates[key] = (koreaMoney * koreaRates[key] / destRates[key]).toFixed(2)
