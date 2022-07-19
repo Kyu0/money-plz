@@ -21,7 +21,7 @@ exports.api = {
         res.json({
             success: true,
             results: results,
-            directExchangeResult: (koreaMoney / destRates['KRW']).toFixed(2)
+            directExchangeResult: koreaRates[destUnit]
         })
     }
 }
