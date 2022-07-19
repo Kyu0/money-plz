@@ -29,7 +29,7 @@ const getExchangeRateFromFile = (countryInitial) => {
 
     let temp = {}
     let tempExchangeRate = {}
-    
+
     for (let [key, value] of Object.entries(countries)) {
         tempExchangeRate[value['unit']] = 1
     }
@@ -37,7 +37,7 @@ const getExchangeRateFromFile = (countryInitial) => {
     for (let country of countries) {
         temp[country['unit']] = tempExchangeRate
     }
-    console.log(temp)
+    
     exchangeRates = temp
 }
 
