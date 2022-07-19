@@ -1,0 +1,22 @@
+<div class="container">
+    <center>
+        <h1>Money Plz</h1>
+        <form class="form-group" id="form-exchange">
+            <label for="koreaMoney">환전할 금액</label>
+            <input id="koreaMoney" class="form-control" type="text" required>
+            <select id="destUnit" class="form-control">
+                {{#each countryInitial}}
+                <option value={{unit}}>{{name}}({{unit}})</option>
+                {{/each}}
+            </select>
+
+            <button type="submit" id="btn-exchange" class="btn btn-primary">결과 보기</button>
+        </form>
+
+        <div id="result">
+            <!-- 환전 결과 (거쳐가는 화폐도 표기)-->
+            <!-- 바로 환전한다면...(다른 국가의 화폐를 안 거쳐갔을 때 금액) -->
+            <!-- 이득 본 금액 -->
+        </div>
+    </center>
+</div>

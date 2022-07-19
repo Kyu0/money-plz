@@ -8,12 +8,14 @@ const handlers = require('./lib/handlers')
 const app = express();
 const port = process.env.PORT || 3000
 
+app.use('/public', express.static('public'))
+
 app.engine('handlebars', engine({
     deafultLayout: 'main'
 }))
 
 app.set('view engine', 'handlebars')
-app.set('views', './views')
+app.set('views', 'public/views')
 
 app.get('/', handlers.index)
 
