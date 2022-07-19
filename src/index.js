@@ -21,6 +21,6 @@ app.get('/', handlers.index)
 app.get('/exchange', handlers.api.exchange)
 
 app.listen(port, () => {
-    exchangeRateApi.getDataByApi()
+    exchangeRateApi.getDataByFile()
     console.log(`Server started on port : ${port}`)
 })
