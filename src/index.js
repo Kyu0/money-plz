@@ -6,7 +6,7 @@ const exchangeRateApi = require('./lib/exchangeRateApi')
 const handlers = require('./lib/handlers')
 
 const app = express();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 80
 
 app.use('/public', express.static('public'))
 
