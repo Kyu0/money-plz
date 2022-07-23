@@ -42,13 +42,18 @@ let exchangeRates = null;
 // }
 
 const getCountries = async () => {
-    countries = await axios.get(API_URI + 'codes')
+    try {
+        countries = await axios.get(API_URI + 'codes')
         .then((response) => {
             return response.data.supported_codes
-                .map((arr) => {
-                    return { 'unit': arr[0], 'name': arr[1] }
-                })
+            .map((arr) => {
+                return { 'unit': arr[0], 'name': arr[1] }
+            })
         })
+    }
+    catch (e) {
+        console.log('Error Occured', e)
+    }
 }
 
 const getExchangeRate = (countryInitial) => {
@@ -76,7 +81,12 @@ exports.getDataByApi = async () => {
     countries = null;
     exchangeRates = null;
 
-    await getCountries()
+    try {
+        await getCountries()
+    }
+    catch (e) {
+        console.log('Error Occured', e)
+    }
 
     for (let country of countries) {
         getExchangeRate(country['unit'])
@@ -86,7 +96,12 @@ exports.getDataByApi = async () => {
 }
 
 schedule.scheduleJob('0 0 0 * * *', async () => { // 매일 0시 마다 실행
-    await this.getDataByApi()
+    try{
+        await this.getDataByApi()
+    }
+    catch (e) {
+        console.log('Error Occured', e)
+    }
     // this.getDataByFile()
 })
 
